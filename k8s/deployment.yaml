@@ -1,0 +1,33 @@
+#APP
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubetemp
+spec: 
+  selector:
+    matchLabels:
+      app: kubetemp
+  template: 
+    metadata:
+      labels: 
+        app: kubetemp
+    spec:
+      containers:
+      - name: "kubetemp"
+        image: wilsoncaetano/kube-temp:1.0.0
+        
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: kubetemp
+spec:
+  selector:
+    app: kubetemp
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30000
+  type: NodePort
+
+ 
